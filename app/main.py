@@ -1,35 +1,10 @@
 # ==============================================================================
-# Copyright (C) 2021 Evil0ctal
-#
-# This file is part of the Douyin_TikTok_Download_API project.
-#
-# This project is licensed under the Apache License 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at:
+# ClipDown - Video Download Tool
+# Based on Douyin_TikTok_Download_API (Apache-2.0 License)
+# Modified and rebranded for personal NAS deployment
+# 
+# This project is licensed under the Apache License 2.0
 # http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-# 　　　　 　　  ＿＿
-# 　　　 　　 ／＞　　フ
-# 　　　 　　| 　_　 _ l
-# 　 　　 　／` ミ＿xノ
-# 　　 　 /　　　 　 |       Feed me Stars ⭐ ️
-# 　　　 /　 ヽ　　 ﾉ
-# 　 　 │　　|　|　|
-# 　／￣|　　 |　|　|
-# 　| (￣ヽ＿_ヽ_)__)
-# 　＼二つ
-# ==============================================================================
-#
-# Contributor Link:
-# - https://github.com/Evil0ctal
-# - https://github.com/Johnserf-Seed
-#
 # ==============================================================================
 
 
@@ -99,35 +74,31 @@ description = f"""
 ### [中文]
 
 #### 关于
-- **Github**: [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API)
+- **Github**: [ClipDown](https://github.com/daveton/clipdown)
 - **版本**: `{version}`
 - **更新时间**: `{update_time}`
 - **环境**: `{environment}`
-- **文档**: [API Documentation](https://douyin.wtf/docs)
 #### 备注
 - 本项目仅供学习交流使用，不得用于违法用途，否则后果自负。
-- 如果你不想自己部署，可以直接使用我们的在线API服务：[Douyin_TikTok_Download_API](https://douyin.wtf/docs)
-- 如果你需要更稳定以及更多功能的API服务，可以使用付费API服务：[TikHub API](https://api.tikhub.io/)
+- 适用于NAS本地部署的视频下载工具
 
 ### [English]
 
 #### About
-- **Github**: [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API)
+- **Github**: [ClipDown](https://github.com/daveton/clipdown)
 - **Version**: `{version}`
 - **Last Updated**: `{update_time}`
 - **Environment**: `{environment}`
-- **Documentation**: [API Documentation](https://douyin.wtf/docs)
 #### Note
 - This project is for learning and communication only, and shall not be used for illegal purposes, otherwise the consequences shall be borne by yourself.
-- If you do not want to deploy it yourself, you can directly use our online API service: [Douyin_TikTok_Download_API](https://douyin.wtf/docs)
-- If you need a more stable and feature-rich API service, you can use the paid API service: [TikHub API](https://api.tikhub.io)
+- Video download tool designed for NAS local deployment
 """
 
 docs_url = config['API']['Docs_URL']
 redoc_url = config['API']['Redoc_URL']
 
 app = FastAPI(
-    title="Douyin TikTok Download API",
+    title="ClipDown API",
     description=description,
     version=version,
     openapi_tags=tags_metadata,

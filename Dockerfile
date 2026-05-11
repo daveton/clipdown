@@ -1,7 +1,8 @@
 # 使用官方 Python 3.11 的轻量版镜像
 FROM python:3.11-slim
 
-LABEL maintainer="Evil0ctal"
+LABEL maintainer="daveton"
+LABEL project="ClipDown"
 
 # 设置非交互模式，避免 Docker 构建时的交互问题
 ENV DEBIAN_FRONTEND=noninteractive
