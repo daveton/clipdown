@@ -42,11 +42,5 @@ API:
   Download_File_Prefix: "clipdown_"    # Default download file prefix | 默认下载文件前缀
 
 
-# iOS Shortcut (已移除原快捷指令链接，可自行创建)
-iOS_Shortcut:
-  iOS_Shortcut_Version: ""
-  iOS_Shortcut_Update_Time: ""
-  iOS_Shortcut_Link: ""
-  iOS_Shortcut_Link_EN: ""
-  iOS_Shortcut_Update_Note: ""
-  iOS_Shortcut_Update_Note_EN: ""
+# iOS Shortcut (已删除此功能)
+# 如需使用快捷指令，可自行创建并调用API接口

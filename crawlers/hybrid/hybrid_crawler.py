@@ -1,51 +1,18 @@
-# ==============================================================================
-# Copyright (C) 2021 Evil0ctal
-#
-# This file is part of the Douyin_TikTok_Download_API project.
-#
-# This project is licensed under the Apache License 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at:
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-# 　　　　 　　  ＿＿
-# 　　　 　　 ／＞　　フ
-# 　　　 　　| 　_　 _ l
-# 　 　　 　／` ミ＿xノ
-# 　　 　 /　　　 　 |       Feed me Stars ⭐ ️
-# 　　　 /　 ヽ　　 ﾉ
-# 　 　 │　　|　|　|
-# 　／￣|　　 |　|　|
-# 　| (￣ヽ＿_ヽ_)__)
-# 　＼二つ
-# ==============================================================================
-#
-# Contributor Link:
-# - https://github.com/Evil0ctal
-#
-# ==============================================================================
+# Hybrid Crawler - Unified interface for multiple platforms
 
 import asyncio
 import re
 import httpx
 
-from crawlers.douyin.web.web_crawler import DouyinWebCrawler  # 导入抖音Web爬虫
-from crawlers.tiktok.web.web_crawler import TikTokWebCrawler  # 导入TikTok Web爬虫
-from crawlers.tiktok.app.app_crawler import TikTokAPPCrawler  # 导入TikTok App爬虫
-from crawlers.bilibili.web.web_crawler import BilibiliWebCrawler  # 导入Bilibili Web爬虫
+from crawlers.douyin.web.web_crawler import DouyinWebCrawler
+from crawlers.tiktok.web.web_crawler import TikTokWebCrawler
+from crawlers.bilibili.web.web_crawler import BilibiliWebCrawler
 
 
 class HybridCrawler:
     def __init__(self):
         self.DouyinWebCrawler = DouyinWebCrawler()
         self.TikTokWebCrawler = TikTokWebCrawler()
-        self.TikTokAPPCrawler = TikTokAPPCrawler()
         self.BilibiliWebCrawler = BilibiliWebCrawler()
 
     async def get_bilibili_bv_id(self, url: str) -> str:
@@ -79,14 +46,9 @@ class HybridCrawler:
         elif "tiktok" in url:
             platform = "tiktok"
             aweme_id = await self.TikTokWebCrawler.get_aweme_id(url)
-
-            # 2024-09-14: Switch to TikTokAPPCrawler instead of TikTokWebCrawler
-            # data = await self.TikTokWebCrawler.fetch_one_video(aweme_id)
-            # data = data.get("itemInfo").get("itemStruct")
-
-            data = await self.TikTokAPPCrawler.fetch_one_video(aweme_id)
-            # $.imagePost exists if aweme_type is photo
-            aweme_type = data.get("aweme_type")
+            data = await self.TikTokWebCrawler.fetch_one_video(aweme_id)
+            data = data.get("itemInfo").get("itemStruct")
+            aweme_type = 0 if data.get("imagePost") is None else 150
         # 解析Bilibili视频/Parse Bilibili video
         elif "bilibili" in url or "b23.tv" in url:
             platform = "bilibili"

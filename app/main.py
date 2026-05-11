@@ -49,16 +49,8 @@ tags_metadata = [
         "description": "**(TikTok-Web-API数据接口/TikTok-Web-API data endpoints)**",
     },
     {
-        "name": "TikTok-App-API",
-        "description": "**(TikTok-App-API数据接口/TikTok-App-API data endpoints)**",
-    },
-    {
         "name": "Bilibili-Web-API",
         "description": "**(Bilibili-Web-API数据接口/Bilibili-Web-API data endpoints)**",
-    },
-    {
-        "name": "iOS-Shortcut",
-        "description": "**(iOS快捷指令数据接口/iOS-Shortcut data endpoints)**",
     },
     {
         "name": "Download",
