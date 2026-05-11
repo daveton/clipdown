@@ -6,7 +6,8 @@
 
 <p align="center">
   <b>适用于NAS的视频下载工具</b><br>
-  支持抖音 / TikTok / Bilibili 无水印下载
+  支持抖音 / TikTok / Bilibili 无水印下载<br>
+  <a href="./docs/README.en.md">English</a>
 </p>
 
 <p align="center">

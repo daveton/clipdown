@@ -1,16 +1,17 @@
 <div align="center">
-<img src="./logo/logo192.png" width="120" alt="ClipDown Logo"/>
+<img src="../logo/logo192.png" width="120" alt="ClipDown Logo"/>
 </div>
 
 <h1 align="center">ClipDown</h1>
 
 <p align="center">
   <b>Video Download Tool for NAS</b><br>
-  Support Douyin / TikTok / Bilibili watermark-free download
+  Support Douyin / TikTok / Bilibili watermark-free download<br>
+  <a href="../README.md">简体中文</a>
 </p>
 
 <p align="center">
-  <a href="./LICENSE">
+  <a href="../LICENSE">
     <img src="https://img.shields.io/github/license/daveton/clipdown?style=flat-square" alt="License"/>
   </a>
 </p>
@@ -78,6 +79,6 @@ API:
 
 ## License
 
-Open source under [Apache-2.0](LICENSE)
+Open source under [Apache-2.0](../LICENSE)
 
 Original project: [Douyin_TikTok_Download_API](https://github.com/Evil0ctal/Douyin_TikTok_Download_API)
