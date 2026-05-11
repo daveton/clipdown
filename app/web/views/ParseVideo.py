@@ -74,17 +74,87 @@ def error_do(reason: str, value: str) -> None:
 
 
 def parse_video():
+    # 添加自定义样式 / Add custom styles
+    put_html("""
+    <style>
+    /* 覆盖PyWebIO textarea样式 / Override PyWebIO textarea styles */
+    #pywebio-scope-input textarea {
+        width: 100% !important;
+        height: 160px !important;
+        background: transparent !important;
+        border: none !important;
+        resize: none !important;
+        outline: none !important;
+        color: #ffffff !important;
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+        padding: 0 !important;
+        font-family: inherit !important;
+    }
+    #pywebio-scope-input textarea::placeholder {
+        color: #52525b !important;
+    }
+    #pywebio-scope-input .form-control {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    /* 按钮样式覆盖 / Button style overrides */
+    .btn-modern-primary {
+        flex: 1;
+        height: 48px;
+        border-radius: 16px;
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: none !important;
+        font-weight: 500;
+        font-size: 15px;
+        transition: opacity 0.2s;
+    }
+    .btn-modern-primary:hover {
+        opacity: 0.9;
+    }
+    .btn-modern-secondary {
+        padding: 0 20px;
+        height: 48px;
+        border-radius: 16px;
+        background: transparent !important;
+        color: #a1a1aa !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .btn-modern-secondary:hover {
+        background: rgba(255, 255, 255, 0.05) !important;
+    }
+    /* 提交按钮组 / Submit button group */
+    .submit-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;
+    }
+    /* 隐藏默认标签 / Hide default labels */
+    #pywebio-scope-input label {
+        display: none !important;
+    }
+    #pywebio-scope-input .form-group {
+        margin-bottom: 0 !important;
+    }
+    </style>
+    """)
+
     placeholder = ViewsUtils.t(
-        "批量解析请直接粘贴多个口令或链接，无需使用符号分开，支持抖音和TikTok链接混合，暂时不支持作者主页链接批量解析。",
-        "Batch parsing, please paste multiple passwords or links directly, no need to use symbols to separate, support for mixing Douyin and TikTok links, temporarily not support for author home page link batch parsing.")
+        "批量解析请直接粘贴多个口令或链接，无需使用符号分开，支持抖音和TikTok链接混合...",
+        "Paste video URLs here... Batch parsing supported for Douyin and TikTok links.")
+
     input_data = textarea(
-        ViewsUtils.t('请将抖音或TikTok的分享口令或网址粘贴于此',
-                     "Please paste the share code or URL of [Douyin|TikTok] here"),
+        label='',
         type=TEXT,
         validate=valid_check,
         required=True,
         placeholder=placeholder,
-        position=0)
+        scope='input')
+
     url_lists = ViewsUtils.find_url(input_data)
     # 解析开始时间
     start = time.time()
@@ -99,10 +169,8 @@ def parse_video():
     failed_list = []
     # 输出一个提示条
     with use_scope('loading_text'):
-        # 输出一个分行符
-        put_row([put_html('<br>')])
-        put_warning(ViewsUtils.t('Server酱正收到你输入的链接啦！(◍•ᴗ•◍)\n正在努力处理中，请稍等片刻...',
-                                 'ServerChan is receiving your input link! (◍•ᴗ•◍)\nEfforts are being made, please wait a moment...'))
+        put_warning(ViewsUtils.t('正在解析链接，请稍候...',
+                                 'Parsing links, please wait...'))
     # 结果页标题
     put_scope('result_title')
     # 遍历链接列表
