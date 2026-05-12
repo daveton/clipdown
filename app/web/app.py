@@ -7,7 +7,6 @@ from pywebio.input import *
 from pywebio.output import *
 
 from app.web.views.Document import api_document_pop_window
-from app.web.views.Downloader import downloader_pop_window
 from app.web.views.ParseVideo import parse_video
 # PyWebIO的各个视图/Views of PyWebIO
 from app.web.views.ViewsUtils import ViewsUtils
@@ -367,7 +366,6 @@ class MainView:
                 </div>
                 <nav class="header-nav">
                     <a href="#" onclick="pywebio.session.run_js('show_api_doc()')">API</a>
-                    <a href="#" onclick="pywebio.session.run_js('show_downloader()')">Docs</a>
                     <a href="https://github.com/daveton/clipdown" target="_blank">GitHub</a>
                 </nav>
             </div>
