@@ -6,7 +6,6 @@ from pywebio import session, config as pywebio_config
 from pywebio.input import *
 from pywebio.output import *
 
-from app.web.views.About import about_pop_window
 from app.web.views.Document import api_document_pop_window
 from app.web.views.Downloader import downloader_pop_window
 from app.web.views.ParseVideo import parse_video
