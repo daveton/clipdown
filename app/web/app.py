@@ -24,20 +24,20 @@ DARK_THEME_CSS = """
 
 /* 深色主题变量 / Dark theme variables */
 :root {
-    --bg-primary: #000000;
-    --bg-secondary: #09090b;
-    --bg-card: #18181b;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --text-primary: #ffffff;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --accent: #ffffff;
-    --accent-text: #000000;
+    --bg-primary: #070b14;
+    --bg-secondary: #0f172a;
+    --bg-card: rgba(15, 23, 42, 0.72);
+    --border-color: rgba(148, 163, 184, 0.24);
+    --text-primary: #e2e8f0;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-text: #082f49;
 }
 
 /* 全局背景 / Global background */
 body {
-    background-color: var(--bg-primary) !important;
+    background: radial-gradient(circle at top, #111827 0%, var(--bg-primary) 45%) !important;
     color: var(--text-primary) !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
@@ -48,14 +48,17 @@ body {
 
 /* 头部样式 / Header styles */
 .header {
-    border-bottom: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
     padding: 0 24px;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 20px auto 0;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(8px);
 }
 
 .header-left {
@@ -114,7 +117,7 @@ body {
 .main-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 80px 24px;
+    padding: 56px 24px 80px;
 }
 
 .hero-section {
@@ -151,7 +154,7 @@ body {
     border: 1px solid var(--border-color);
     background: var(--bg-card);
     padding: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 18px 40px -18px rgba(56, 189, 248, 0.55);
 }
 
 /* 自定义textarea样式 / Custom textarea */
@@ -337,8 +340,47 @@ pywebio_config(theme='dark',
 
 
 class MainView:
+    BRAND_NAME = "ClipDown"
+    BRAND_SUBTITLE = "Video Download API"
+
     def __init__(self):
         self.utils = ViewsUtils()
+
+    def _inject_head(self, favicon_url: str):
+        """Inject global styles and head metadata."""
+        session.run_js(f"""
+            $('head').append(`{DARK_THEME_CSS}`);
+            $('head').append('<link rel="icon" type="image/png" href="{favicon_url}">');
+            $('head').append('<meta name="referrer" content="no-referrer">');
+        """)
+
+    def _render_header(self, favicon_url: str):
+        header_html = f"""
+        <div class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="{favicon_url}" alt="{self.BRAND_NAME}">
+                </div>
+                <div class="brand-text">
+                    <h1>{self.BRAND_NAME}</h1>
+                    <p>{self.BRAND_SUBTITLE}</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="#" onclick="pywebio.session.run_js('show_api_doc()')">API</a>
+                <a href="https://github.com/daveton/clipdown" target="_blank">GitHub</a>
+            </nav>
+        </div>
+        """
+        put_html(header_html)
+
+    def _render_footer(self):
+        footer_html = """
+        <div class="footer">
+            © 2026 ClipDown
+        </div>
+        """
+        put_html(footer_html)
 
     # 主界面/Main view
     def main_view(self):
@@ -346,31 +388,10 @@ class MainView:
             favicon_url = _config['Web']['Favicon']
 
             # 注入CSS和meta标签 / Inject CSS and meta tags
-            session.run_js(f"""
-                $('head').append(`{DARK_THEME_CSS}`);
-                $('head').append('<link rel="icon" type="image/png" href="{favicon_url}">');
-                $('head').append('<meta name="referrer" content="no-referrer">');
-            """)
+            self._inject_head(favicon_url)
 
             # 头部 / Header
-            header_html = f"""
-            <div class="header">
-                <div class="header-left">
-                    <div class="logo-container">
-                        <img src="{favicon_url}" alt="ClipDown">
-                    </div>
-                    <div class="brand-text">
-                        <h1>ClipDown</h1>
-                        <p>Video Download API</p>
-                    </div>
-                </div>
-                <nav class="header-nav">
-                    <a href="#" onclick="pywebio.session.run_js('show_api_doc()')">API</a>
-                    <a href="https://github.com/daveton/clipdown" target="_blank">GitHub</a>
-                </nav>
-            </div>
-            """
-            put_html(header_html)
+            self._render_header(favicon_url)
 
             # 主内容区 / Main content
             put_html('<div class="main-container">')
@@ -411,9 +432,4 @@ class MainView:
             put_html('</div>')  # 关闭main-container
 
             # 页脚 / Footer
-            footer_html = """
-            <div class="footer">
-                © 2026 ClipDown
-            </div>
-            """
-            put_html(footer_html)
+            self._render_footer()

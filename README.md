@@ -71,6 +71,13 @@ API:
 - 部署后需要在浏览器中获取抖音Cookie并替换到配置文件中
 - 请遵守各平台的使用条款
 
+
+## 文档
+
+- 文档导航：[`docs/README.md`](./docs/README.md)
+- NAS 部署：[`docs/NAS_DEPLOY.md`](./docs/NAS_DEPLOY.md)
+- English README：[`docs/README.en.md`](./docs/README.en.md)
+
 ## 技术栈
 
 - Web界面: [PyWebIO](https://www.pyweb.io/)

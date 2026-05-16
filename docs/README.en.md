@@ -71,6 +71,13 @@ API:
 - After deployment, you need to obtain Douyin cookies from browser and update the config file
 - Please comply with the terms of service of each platform
 
+
+## Documentation
+
+- Docs index: [`./README.md`](./README.md)
+- NAS deployment: [`./NAS_DEPLOY.md`](./NAS_DEPLOY.md)
+- Chinese README: [`../README.md`](../README.md)
+
 ## Tech Stack
 
 - Web UI: [PyWebIO](https://www.pyweb.io/)
