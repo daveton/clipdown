@@ -140,6 +140,19 @@ def parse_video():
     #pywebio-scope-input .form-group {
         margin-bottom: 0 !important;
     }
+    .input-helper {
+        margin-top: 14px;
+        color: #a1a1aa;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    .result-block {
+        margin-top: 20px;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+    }
     </style>
     """)
 
@@ -154,6 +167,7 @@ def parse_video():
         required=True,
         placeholder=placeholder,
         scope='input')
+    put_html(f'<div class="input-helper">{ViewsUtils.t("支持混合粘贴多个链接，将自动提取并逐条解析。", "You can paste mixed links and they will be extracted and parsed one by one.")}</div>')
 
     url_lists = ViewsUtils.find_url(input_data)
     # 解析开始时间
@@ -174,9 +188,7 @@ def parse_video():
     # 结果页标题
     put_scope('result_title')
     # 遍历链接列表
-    for url in url_lists:
-        # 链接编号
-        url_index = url_lists.index(url) + 1
+    for url_index, url in enumerate(url_lists, start=1):
         # 解析
         try:
             data = asyncio.run(HybridCrawler.hybrid_parsing_single_video(url, minimal=True))
@@ -255,13 +267,14 @@ def parse_video():
                                             new_window=True)])
         # 向网页输出表格/Put table on web page
         with use_scope(str(url_index)):
+            put_html('<div class="result-block">')
             # 显示进度
             put_info(
                 ViewsUtils.t(f'正在解析第{url_index}/{url_count}个链接: ',
                              f'Parsing the {url_index}/{url_count}th link: '),
                 put_link(url, url, new_window=True), closable=True)
             put_table(table_list)
-            put_html('<hr>')
+            put_html('</div>')
         scroll_to(str(url_index))
         success_count += 1
         success_list.append(url)
